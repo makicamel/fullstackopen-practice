@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const notes = [
+let notes = [
   {
     id: 1,
     content: "HTML is easy",
@@ -25,6 +25,12 @@ app.get('/api/notes/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
+})
+
+app.delete('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  notes = notes.filter(note => note.id !== id)
+  response.status(204).end()
 })
 
 const PORT = 3004
