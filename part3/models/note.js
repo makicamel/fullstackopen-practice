@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-const url = `mongodb+srv://makicamel:<password>@cluster0.rs7hh.mongodb.net/noteApp?retryWrites=true&w=majority`
-mongoose.connect(url)
+const url = process.env.MONGODB_URI
 console.log('connecting to', url)
 
 mongoose.connect(url)
