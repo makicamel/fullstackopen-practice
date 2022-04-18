@@ -2,28 +2,12 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
-const mongoose = require('mongoose')
+const Note = require('./models/note')
 app.use(express.json())
 morgan.token('body', (request) => JSON.stringify(request.body))
 app.use(morgan(':method :url :status :response-time ms - :res[content-length] - :body'));
 app.use(cors())
 app.use(express.static('build'))
-const url = `mongodb+srv://makicamel:<password>@cluster0.rs7hh.mongodb.net/noteApp?retryWrites=true&w=majority`
-mongoose.connect(url)
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
-  important: Boolean,
-})
-noteSchema.set('toJSON', {
-  transform: (_document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
-const Note = mongoose.model('Note', noteSchema)
 
 let notes = [
   {
