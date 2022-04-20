@@ -41,9 +41,11 @@ app.post('/api/notes', (request, response) => {
     date: new Date(),
     important: body.important || false
   })
-  note.save().then(savedNote => {
-    response.json(savedNote)
-  })
+  note.save()
+    .then(savedNote => {
+      response.json(savedNote.toJSON())
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
@@ -79,9 +81,14 @@ app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
+
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformed id' })
-    next(error)
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
+
+  next(error)
 }
+
 app.use(errorHandler)
