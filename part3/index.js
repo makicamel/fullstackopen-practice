@@ -6,7 +6,7 @@ const app = express()
 const Note = require('./models/note')
 app.use(express.json())
 morgan.token('body', (request) => JSON.stringify(request.body))
-app.use(morgan(':method :url :status :response-time ms - :res[content-length] - :body'));
+app.use(morgan(':method :url :status :response-time ms - :res[content-length] - :body'))
 app.use(cors())
 app.use(express.static('build'))
 
@@ -62,7 +62,7 @@ app.put('/api/notes/:id', (request, response, next) => {
 
 app.delete('/api/notes/:id', (request, response, next) => {
   Note.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
