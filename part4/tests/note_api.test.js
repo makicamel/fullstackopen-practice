@@ -41,6 +41,13 @@ test('the first note is about HTTP methods', async () => {
   expect(response.body[0].content).toBe('HTML is easy')
 })
 
+test('a specific note is within the returned notes', async () => {
+  const response = await api.get('/api/notes')
+  const contents = response.body.map(r => r.content)
+  expect(contents).toContain(
+    'Browser can execute only JavaScript'
+  )
+})
 afterAll(() => {
   mongoose.connection.close()
 })
