@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "NODENV=production node index.js",
+    "dev": "NODENV=development nodemon index.js",
     "build:ui": "rm -fr build && cd ../part2/ && npm run build && cp -r build ../part3",
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "logs:prod": "heroku logs --tail",
     "lint": "eslint .",
-    "test": "jest --verbose"
+    "test": "NODE_ENV=test jest --verbose"
   },
   "author": "Matti Luukkainen",
   "license": "MIT",
