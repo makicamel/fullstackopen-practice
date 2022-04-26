@@ -23,6 +23,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^8.14.0",
     "jest": "^28.0.0",
     "nodemon": "^2.0.15"
